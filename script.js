@@ -38,41 +38,42 @@ window.addEventListener("load", function() {
    form.addEventListener("submit", function(event){
       event.preventDefault();
       defaultStatus();
-      if (pilotName.value === "" && copilotName.value === "" && fuelLevel.value === "" && cargoMass.value === "") {
+      if (pilotName.value === "" || copilotName.value === "" || fuelLevel.value === "" || cargoMass.value === "") {
          alert("ALL FIELDS ARE REQUIRED");
       }      
       
       else if (pilotName.value === "" || Number(pilotName.value)) {
          // faultyItems.style.visibility = "visible";
          pilotStatus.innerText = `You do not have a pilot`;
-         alert("Please fill out Pilot Name correctly.");         
+         alert("Please fill out Pilot Name correctly (must include letters)");         
          inputFault--;         
       }
       else if (copilotName.value === "" || Number(copilotName.value)){
          // faultyItems.style.visibility = "visible";
          copilotStatus.innerText = `You do not have a Co-pilot.`;
-         alert("Please fill out Co-pilot Name.");
+         alert("Please fill out Co-pilot Name correctly (must include letters)");
          inputFault--;
       }
       else if (fuelLevel.value === "" || isNaN(fuelLevel.value) || fuelLevel.value < 10000) {   
          faultyItems.style.visibility = "visible";
          fuelStatus.innerText = `There is not enough fuel for the journey`;
          redStatus(); 
-         alert("Please put in a positive number for Fuel Level."); 
+         alert("Please put in an acceptable number for Fuel Level (10000 or larger)"); 
          inputFault--;         
       }         
-      else if (cargoMass.value === "" || isNaN(cargoMass.value) || cargoMass.value < 0 || cargoMass.value > 10000) {
+      else if (cargoMass.value === "" || isNaN(cargoMass.value) || cargoMass.value < 0 || cargoMass.value > 10001) {
          faultyItems.style.visibility = "visible";
-         if(cargoMass.value > 10000) {
-            cargoStatus.innerText = `There is to much mass for the shuttle to take off`;            
+         if(cargoMass.value > 10001) {
+            cargoStatus.innerText = `There is too much mass for the shuttle to take off`;            
          }
          else {
             cargoStatus.innerText = `Please put in a positive number for Cargo Mass`;
          }
          redStatus();          
-         alert("Please put in an acceptable number for Cargo Mass.(1-9999)");          
+         alert("Please put in an acceptable number for Cargo Mass (1-9999)");          
          inputFault--;         
       }
+      //may be unneeded 
       else if (inputFault = 1){
          greenStatus();
          defaultStatus();
